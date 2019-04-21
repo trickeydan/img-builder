@@ -9,13 +9,16 @@ KERNEL=kernel.bin
 
 all: run
 
+# Download the zip image from Raspberry Pi.
+# Verify the hash of it.
 $(BASE_IMG_FILE):
 	rm -f $(BASE_IMG_FILE)
 	wget $(BASE_IMG_URL)
 	echo "$(BASE_IMG_HASH) $(BASE_IMG_FILE)" | sha256sum --check
 
+# Unzip the image file.
 $(BASE_IMG_NAME): $(BASE_IMG_FILE)
-	unzip -fj $(BASE_IMG_FILE)
+	unzip -jo $(BASE_IMG_FILE)
 
 .PHONY: clean
 
